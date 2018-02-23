@@ -78,7 +78,6 @@ extension HFSwipeView {
             }
         }
         
-        log("[\(self.tag)]: from: \(from) to: \(minIdx)")
         return IndexPath(item: minIdx, section: 0)
     }
     
@@ -129,7 +128,6 @@ extension HFSwipeView {
             } else {
                 displayIndex = realIndex.row - count - dummyCount
             }
-            log("[\(self.tag)]: \(realIndex.row) -> \(displayIndex)")
             return IndexPath(item: displayIndex, section: 0)
         } else {
             return IndexPath(item: realIndex.row, section: 0)
@@ -144,7 +142,6 @@ extension HFSwipeView {
         if 0 <= displayIndex.row && displayIndex.row < count {
             index = displayIndex.row + dummyCount
         }
-        log("[\(self.tag)]: \(displayIndex.row) -> \(index)")
         return IndexPath(item: index, section: 0)
     }
     
@@ -178,7 +175,6 @@ extension HFSwipeView {
         }
         
         guard let indexPath = indexPathForItemAtPoint(collectionView.contentOffset) else {
-            logw("indexPathForItemAtPoint returned nil.")
             return
         }
         
@@ -194,9 +190,7 @@ extension HFSwipeView {
             if let view = indexViewMapper[currentRealPage] {
                 dataSource?.swipeView?(self, needUpdateCurrentViewForIndexPath: displayIndex, view: view)
             } else {
-                logw("Failed to retrieve current view from indexViewMapper for indexPath: \(indexPath.row)")
             }
-            log("[\(self.tag)]: \(currentPage)/\(count - 1) - \(currentRealPage)/\(realViewCount - 1)")
         }
     }
     
@@ -205,7 +199,6 @@ extension HFSwipeView {
         guard let indexPath = indexPathForItemAtPoint(collectionView.contentOffset) else {
             return
         }
-        log("[\(self.tag)]: real -> \(indexPath.row)")
         
         let displayIndex = displayIndexUsing(indexPath)
         delegate?.swipeView?(self, didFinishScrollAtIndexPath: displayIndex)
